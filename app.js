@@ -26,9 +26,9 @@ function searchBy(){
 }
 
 
-
+/* 
 function searchByEyeColor(){
-    //Maybe will be using Eye color as a search value and seing how something would be return
+    
      if(person.eyeColor === eyeColorInput) {
          return true;
      }
@@ -38,4 +38,4 @@ if(filteredEyePeople.length > 0){
     console.log(filteredEyePeople);
 }else{
     console.log('Sorry, looks like there is no one with that eye color.');
-}
+} */

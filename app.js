@@ -20,3 +20,20 @@ function searchByName(){
         console.log('Sorry, looks like there is no one with that name.');
     }
 }
+
+
+
+function searchByEyeColor(){
+    //Maybe will be using Eye color as a search value and seing how something would be return
+ let eyeColorInput = document.forms['eyeForm']['fEye'].value;
+ let filteredEyePeople = people.filter(function (person) {
+     if(person.eyeColor === eyeColorInput) {
+         return true;
+     }
+     return false;
+});
+if(filteredEyePeople.length > 0){
+    console.log(filteredEyePeople);
+}else{
+    console.log('Sorry, looks like there is no one with that eye color.');
+}

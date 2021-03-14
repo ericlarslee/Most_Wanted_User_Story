@@ -71,3 +71,4 @@ function searchByOccupation(){
         console.log('Sorry, looks like there is no one with that occupation.');
     }
 }
+

@@ -1,8 +1,6 @@
 
 
-
-// You may modify this for testing purposes.
-const people = [
+ people = [
 	{
 		"id": 272822514,
 		"firstName": "Billy",

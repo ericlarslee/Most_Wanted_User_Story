@@ -40,13 +40,9 @@ function searchByEyeColor(){
     }else{
         console.log('Sorry, looks like there is no one with that eye color.');
     }
-}
 
-function searchByGender(){
-    let genderInput = document.forms['nameForm']['gender'].value;
-    let filteredGender = people.filter(function (person) {
-    if(person.gender === genderInput) {
-        return true;
+    if(person.lastName.length > 0) {
+        alert('Sorry, looks like there is no one with that name.')
     }
     return false;
     }); 
@@ -55,13 +51,9 @@ function searchByGender(){
     }else{
         console.log('Sorry, looks like there is no one with that gender.');
     }
-}
 
-function searchByOccupation(){
-    let occupationInput = document.forms['nameForm']['occupation'].value;
-    let filteredOccupation = people.filter(function (person) {
-    if(person.occupation === occupationInput) {
-        return true;
+    if(person.eyeColor.length > 0) {
+        alert('Sorry, looks like there is no one with that eye color.')
     }
     return false;
     }); 

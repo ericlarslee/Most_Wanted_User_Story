@@ -3,6 +3,7 @@
 //figure out if these are objects, or attributes of elements, or what they are
 // You may modify this for testing purposes.
 const people = [
+ people = [
 	{
 		"id": 272822514,
 		"firstName": "Billy",

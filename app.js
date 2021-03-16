@@ -1,11 +1,5 @@
 'use strict';
 
-    let firstNameInput = document.forms['nameForm']['fname'].value;
-    let lastNameInput = document.forms['nameForm']['lname'].value;
-    let eyeColorInput = document.forms['nameForm']['eyeColor'].value;
-    let genderInput = document.forms['nameForm']['gender'].value;
-    let occupationInput = document.forms['nameForm']['occupation'].value;
-
 function filterByFirstName() {
     let firstNameInput = document.forms['nameForm']['fname'].value;    
     let filteredFirstNamePeople = people.filter(function (people) {
@@ -34,9 +28,6 @@ function filterByLastName() {
         alert('Sorry, looks like there is no one with that name.');
     }
 }
-
-
-
  
 function filterByEyeColor() {
     let eyeColorInput = document.forms['nameForm']['eyeColor'].value;
@@ -83,22 +74,38 @@ function filterByOccupation() {
     }
 }
 
+
+
+function intersect(arr1, arr2) {
+    if (arr2=== undefined || arr2.length === 0) {
+        return arr1;
+    }
+    else{
+    let filteredResults = arr1.filter(x=> arr2.includes(x));
+    if (filteredResults.length === 0){
+        return arr1;
+    }
+        else { 
+        return filteredResults;
+        }
+    }
+}
+
 function completeSearch() {
+    let results = people;
     let firstNameResults = filterByFirstName();
     let lastNameResults = filterByLastName();
+    let eyeColorResults = filterByEyeColor();
+    let genderResults = filterByGender();
+    let occupationResults = filterByOccupation();
 
-    let results = firstNameResults.filter(x=> lastNameResults.includes(x));
+    results = intersect(results, firstNameResults);
+    results = intersect(results, lastNameResults);
+    results = intersect(results, eyeColorResults);
+    results = intersect(results, genderResults);
+    results = intersect(results, occupationResults);
 
-    /* for(let i=0; i < firstNameResults.length; i++) {
-        for(let e=0; e < lastNameResults.length; e++) {
-            if (firstNameResults[i] === lastNameResults[e]) {
-                results.push(lastNameResult[e]);
-                }
-            else {
-                e++; 
-            }
-        }
-    i++;
-    } */
+    /* let results = firstNameResults.filter(x=> lastNameResults.includes(x)); */
+
     console.log(results);
 }

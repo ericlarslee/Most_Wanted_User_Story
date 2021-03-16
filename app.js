@@ -10,8 +10,8 @@ function filterByFirstName() {
     });
     if(filteredFirstNamePeople.length > 0){
         return filteredFirstNamePeople
-    }else{
-        alert('Sorry, looks like there is no one with that name.');
+    }else if(filteredFirstNamePeople.length === 0 || filteredFirstNamePeople === undefined){
+        return
     }
 }
 function filterByLastName() {
@@ -25,7 +25,7 @@ function filterByLastName() {
     if(filteredLastNamePeople.length > 0){
        return filteredLastNamePeople
     }else{
-        alert('Sorry, looks like there is no one with that name.');
+        return;
     }
 }
  
@@ -40,7 +40,7 @@ function filterByEyeColor() {
     if(filteredEyeColor.length > 0){
         return filteredEyeColor
     }else{
-        alert('Sorry, looks like there is no one with that eye color.');
+        return;
     }
 }
 
@@ -55,7 +55,7 @@ function filterByGender() {
     if(filteredGender.length > 0){
         return filteredGender
     }else{
-        alert('Sorry, looks like there is no one with that gender.');
+        return;
     }
 }
 
@@ -70,14 +70,13 @@ function filterByOccupation() {
     if(filteredOccupation.length > 0){
         return filteredOccupation
     }else{
-        alert('Sorry, looks like there is no one with that occupation.');
+        return
     }
 }
 
-
-
-function intersect(arr1, arr2) {
-    if (arr2=== undefined || arr2.length === 0) {
+function intersect(arr1, arr2, name) {
+    if (arr2 === undefined || arr2.length === 0) {
+        alert(`Sorry, there is no one by that ${name}.`)
         return arr1;
     }
     else{
@@ -99,13 +98,21 @@ function completeSearch() {
     let genderResults = filterByGender();
     let occupationResults = filterByOccupation();
 
-    results = intersect(results, firstNameResults);
-    results = intersect(results, lastNameResults);
-    results = intersect(results, eyeColorResults);
-    results = intersect(results, genderResults);
-    results = intersect(results, occupationResults);
-
-    /* let results = firstNameResults.filter(x=> lastNameResults.includes(x)); */
+    if(1 > 0){
+            results = intersect(results, firstNameResults, "First Name");
+            results = intersect(results, lastNameResults, "Last Name");
+            results = intersect(results, eyeColorResults, "eye color");
+            results = intersect(results, genderResults, "gender");
+            results = intersect(results, occupationResults, "occupation");
+        }
+    
+    
+    if (firstNameResults === 0 || firstNameResults === undefined && lastNameResults === 0 || lastNameResults === undefined && eyeColorResults === 0 || eyeColorResults === undefined && genderResults === 0 || genderResults === undefined && occupationResults === 0 || occupationResults ===undefined) {
+        results = ""
+        return results;
+    }
+    
+    
 
     console.log(results);
 }

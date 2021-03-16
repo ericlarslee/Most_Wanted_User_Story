@@ -1,11 +1,14 @@
 'use strict';
 
+<<<<<<< HEAD
     let firstNameInput = document.forms['nameForm']['fname'].value;
     let lastNameInput = document.forms['nameForm']['lname'].value;
     let eyeColorInput = document.forms['nameForm']['eyeColor'].value;
     let genderInput = document.forms['nameForm']['gender'].value;
     let occupationInput = document.forms['nameForm']['occupation'].value;
 
+=======
+>>>>>>> f008ae9a8483dde76e1f38bae1dbae159dc96a8f
 function filterByFirstName() {
     let firstNameInput = document.forms['nameForm']['fname'].value;    
     let filteredFirstNamePeople = people.filter(function (people) {
@@ -16,6 +19,7 @@ function filterByFirstName() {
     });
     if(filteredFirstNamePeople.length > 0){
         return filteredFirstNamePeople
+<<<<<<< HEAD
     }else{
         alert('Sorry, looks like there is no one with that name.');
     }
@@ -30,13 +34,32 @@ function filterByLastName() {
     });
     if(filteredLastNamePeople.length > 0){
        return filteredLastNamePeople
+=======
+>>>>>>> f008ae9a8483dde76e1f38bae1dbae159dc96a8f
     }else{
         alert('Sorry, looks like there is no one with that name.');
     }
 }
+<<<<<<< HEAD
 
 
 
+=======
+function filterByLastName() {
+    let lastNameInput = document.forms['nameForm']['lname'].value;    
+    let filteredLastNamePeople = people.filter(function (people) {
+        if(people.lastName === lastNameInput){
+            return true;
+        }
+        return false;
+    });
+    if(filteredLastNamePeople.length > 0){
+       return filteredLastNamePeople
+    }else{
+        alert('Sorry, looks like there is no one with that name.');
+    }
+}
+>>>>>>> f008ae9a8483dde76e1f38bae1dbae159dc96a8f
  
 function filterByEyeColor() {
     let eyeColorInput = document.forms['nameForm']['eyeColor'].value;
@@ -83,6 +106,7 @@ function filterByOccupation() {
     }
 }
 
+<<<<<<< HEAD
 function completeSearch() {
     let firstNameResults = filterByFirstName();
     let lastNameResults = filterByLastName();
@@ -141,3 +165,40 @@ mostWanted.forEach(person => {
 myTable.appendChild(table);
 
 */
+=======
+
+
+function intersect(arr1, arr2) {
+    if (arr2=== undefined || arr2.length === 0) {
+        return arr1;
+    }
+    else{
+    let filteredResults = arr1.filter(x=> arr2.includes(x));
+    if (filteredResults.length === 0){
+        return arr1;
+    }
+        else { 
+        return filteredResults;
+        }
+    }
+}
+
+function completeSearch() {
+    let results = people;
+    let firstNameResults = filterByFirstName();
+    let lastNameResults = filterByLastName();
+    let eyeColorResults = filterByEyeColor();
+    let genderResults = filterByGender();
+    let occupationResults = filterByOccupation();
+
+    results = intersect(results, firstNameResults);
+    results = intersect(results, lastNameResults);
+    results = intersect(results, eyeColorResults);
+    results = intersect(results, genderResults);
+    results = intersect(results, occupationResults);
+
+    /* let results = firstNameResults.filter(x=> lastNameResults.includes(x)); */
+
+    console.log(results);
+}
+>>>>>>> f008ae9a8483dde76e1f38bae1dbae159dc96a8f

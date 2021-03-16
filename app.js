@@ -2,25 +2,29 @@
 
 function filterByFirstName() {
     let firstNameInput = document.forms['nameForm']['fname'].value;    
-    let filteredFirstNamePeople = people.filter(function (people) {
-        if(people.firstName === firstNameInput){
-            return true;
-        }
-        return false;
-    });
-    if(filteredFirstNamePeople.length > 0){
-        return filteredFirstNamePeople
-    }else if(filteredFirstNamePeople.length === 0 || filteredFirstNamePeople === undefined){
-        return
-
-    }else{
+    if(firstNameInput === ""){
         return;
     }
+    let filteredFirstNamePeople = people.filter(function (person) {
+            if(person.firstName === firstNameInput){
+                return true;
+            }
+            return false;
+        });
+        if(filteredFirstNamePeople.length > 0){
+            return filteredFirstNamePeople
+         }else{
+             alert("There is no one by that first name.")
+             return;
+        }
 }
 function filterByLastName() {
     let lastNameInput = document.forms['nameForm']['lname'].value;    
-    let filteredLastNamePeople = people.filter(function (people) {
-        if(people.lastName === lastNameInput){
+    if(lastNameInput === "") {
+        return;
+    }
+    let filteredLastNamePeople = people.filter(function (person) {
+        if(person.lastName === lastNameInput){
             return true;
         }
         return false;
@@ -28,29 +32,20 @@ function filterByLastName() {
     if(filteredLastNamePeople.length > 0){
        return filteredLastNamePeople
     }else{
+        alert("There is no one by that last name.")
         return;
 
     }
 }
 
-function filterByLastName() {
-    let lastNameInput = document.forms['nameForm']['lname'].value;    
-    let filteredLastNamePeople = people.filter(function (people) {
-        if(people.lastName === lastNameInput){
-            return true;
-        }
-        return false;
-    });
-    if(filteredLastNamePeople.length > 0){
-       return filteredLastNamePeople
-    }else{
-        return;
-    }
-}
+
 function filterByEyeColor() {
     let eyeColorInput = document.forms['nameForm']['eyeColor'].value;
-    let filteredEyeColor = people.filter(function (people) {
-    if(people.eyeColor === eyeColorInput) {
+    if(eyeColorInput === "") {
+        return;
+    }
+    let filteredEyeColor = people.filter(function (person) {
+    if(person.eyeColor === eyeColorInput) {
         return true;
     }
     return false;
@@ -58,14 +53,18 @@ function filterByEyeColor() {
     if(filteredEyeColor.length > 0){
         return filteredEyeColor
     }else{
+        alert("There is no one by that eye color.")
         return;
     }
 }
 
 function filterByGender() {
     let genderInput = document.forms['nameForm']['gender'].value;
-    let filteredGender = people.filter(function (people) {
-    if(people.gender === genderInput) {
+    if(genderInput === "") {
+        return;
+    }
+    let filteredGender = people.filter(function (person) {
+    if(person.gender === genderInput) {
         return true;
     }
     return false;
@@ -73,22 +72,27 @@ function filterByGender() {
     if(filteredGender.length > 0){
         return filteredGender
     }else{
+        alert("There is no one by that gender.")
         return;
     }
 }
 
 function filterByOccupation() {
     let occupationInput = document.forms['nameForm']['occupation'].value;
-    let filteredOccupation = people.filter(function (people) {
-    if(people.occupation === occupationInput) {
+    if(occupationInput === "") {
+        return;
+    }
+    let filteredOccupation = people.filter(function (person) {
+    if(person.occupation === occupationInput) {
         return true;
     }
     return false;
     }); 
     if(filteredOccupation.length > 0){
-        return filteredOccupation
+        return filteredOccupation;
     }else{
-        return
+        alert("There is no one by that occupation.")
+        return;
     }
 }
 
@@ -114,19 +118,14 @@ function completeSearch() {
     let genderResults = filterByGender();
     let occupationResults = filterByOccupation();
 
-    if(1 > 0){
-            results = intersect(results, firstNameResults, "First Name");
-            results = intersect(results, lastNameResults, "Last Name");
-            results = intersect(results, eyeColorResults, "eye color");
-            results = intersect(results, genderResults, "gender");
-            results = intersect(results, occupationResults, "occupation");
-        }
+
+    results = intersect(results, firstNameResults);
+    results = intersect(results, lastNameResults);
+    results = intersect(results, eyeColorResults);
+    results = intersect(results, genderResults);
+    results = intersect(results, occupationResults);
+
     
-    
-    if (firstNameResults === 0 || firstNameResults === undefined && lastNameResults === 0 || lastNameResults === undefined && eyeColorResults === 0 || eyeColorResults === undefined && genderResults === 0 || genderResults === undefined && occupationResults === 0 || occupationResults ===undefined) {
-        results = ""
-        return results;
-    }
     console.log(results);
 }
 

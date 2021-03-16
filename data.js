@@ -1,13 +1,5 @@
-
-
-<<<<<<< HEAD
-people = [
-=======
-//figure out if these are objects, or attributes of elements, or what they are
 // You may modify this for testing purposes.
-const people = [
- people = [
->>>>>>> 4b35564b9913438028d5b699c4778aa6c0631844
+people = [
 	{
 		"id": 272822514,
 		"firstName": "Billy",
@@ -294,17 +286,4 @@ const people = [
 		"parents": [313207561, 313997561],
 		"currentSpouse": null
 	}
-<<<<<<< HEAD
 ];
-
-
-
-
-
-
-
-
-=======
-]
-]
->>>>>>> 4b35564b9913438028d5b699c4778aa6c0631844

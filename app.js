@@ -1,5 +1,24 @@
 'use strict';
 
+function filterByID() {
+    let iDInput = parseInt(document.forms['nameForm']['idn'].value);    
+    if(Number.isNaN(iDInput)=== true){
+        return;
+    }
+    let filteredID= people.filter(function (person) {
+            if(parseInt(person.id) === iDInput){
+                return true;
+            }
+            return false;
+        });
+        if(filteredID.length > 0){
+            return filteredID;
+         }else{
+             alert("There is no one by that ID number.")
+             return;
+        }
+    }
+
 function filterByFirstName() {
     let firstNameInput = document.forms['nameForm']['fname'].value;    
     if(firstNameInput === ""){
@@ -17,6 +36,7 @@ function filterByFirstName() {
              alert("There is no one by that first name.")
              return;
         }
+    
 }
 function filterByLastName() {
     let lastNameInput = document.forms['nameForm']['lname'].value;    
@@ -95,7 +115,6 @@ function filterByOccupation() {
         return;
     }
 }
-
 function intersect(arr1, arr2) {
     if (arr2=== undefined || arr2.length === 0) {
         return arr1;
@@ -112,19 +131,19 @@ function intersect(arr1, arr2) {
 }
 function completeSearch() {
     let results = people;
+    let iDResults = filterByID();
     let firstNameResults = filterByFirstName();
     let lastNameResults = filterByLastName();
     let eyeColorResults = filterByEyeColor();
     let genderResults = filterByGender();
     let occupationResults = filterByOccupation();
 
-
+    results = intersect(results, iDResults);
     results = intersect(results, firstNameResults);
     results = intersect(results, lastNameResults);
     results = intersect(results, eyeColorResults);
     results = intersect(results, genderResults);
     results = intersect(results, occupationResults);
-
     
  return results;
 }
@@ -132,10 +151,20 @@ function completeSearch() {
 let btnGet = document.querySelector('button');
 let myTable = document.querySelector('#table');
 
-
 btnGet.addEventListener('click', () => {
+ let results = completeSearch();
+    if(results.length < 2) {
+        let person = results[0].id;
+        let parents = results[0].parents;
+        let spouse = results[0].currentSpouse.firstName;
+        console.log(person);
+        console.log(parents);
+        console.log(spouse);
+        return;
+    }
+    else {
     let headers = ['ID','First Name', 'Last Name', 'Gender', 'Eye Color', 'DOB', 'Height', 'Weight', 'Occupation', 'Parent', 'Spouse'];
-   let table = document.createElement('table');   
+    let table = document.createElement('table');   
     let titleRow = document.createElement('tr');
 
     headers.forEach(titleText => {
@@ -145,11 +174,7 @@ btnGet.addEventListener('click', () => {
         titleRow.appendChild(title);
        
     });
-
-
 table.appendChild(titleRow);
-
-let results = completeSearch();
 
 results.forEach(person => {
     let row = document.createElement('tr');
@@ -165,19 +190,7 @@ results.forEach(person => {
 })
 
 myTable.appendChild(table);
-});
-
-
-
-/*
-search id
-let family = [person.parents, person.id, person.spouse]
-
-let header =  
-for each i in family getelementbYDocID 
-
-*/
-
+}});
 
 
 

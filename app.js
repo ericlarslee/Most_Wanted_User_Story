@@ -12,6 +12,9 @@ function filterByFirstName() {
         return filteredFirstNamePeople
     }else if(filteredFirstNamePeople.length === 0 || filteredFirstNamePeople === undefined){
         return
+
+    }else{
+        return;
     }
 }
 function filterByLastName() {
@@ -26,9 +29,24 @@ function filterByLastName() {
        return filteredLastNamePeople
     }else{
         return;
+
     }
 }
- 
+
+function filterByLastName() {
+    let lastNameInput = document.forms['nameForm']['lname'].value;    
+    let filteredLastNamePeople = people.filter(function (people) {
+        if(people.lastName === lastNameInput){
+            return true;
+        }
+        return false;
+    });
+    if(filteredLastNamePeople.length > 0){
+       return filteredLastNamePeople
+    }else{
+        return;
+    }
+}
 function filterByEyeColor() {
     let eyeColorInput = document.forms['nameForm']['eyeColor'].value;
     let filteredEyeColor = people.filter(function (people) {
@@ -74,9 +92,8 @@ function filterByOccupation() {
     }
 }
 
-function intersect(arr1, arr2, name) {
-    if (arr2 === undefined || arr2.length === 0) {
-        alert(`Sorry, there is no one by that ${name}.`)
+function intersect(arr1, arr2) {
+    if (arr2=== undefined || arr2.length === 0) {
         return arr1;
     }
     else{
@@ -89,7 +106,6 @@ function intersect(arr1, arr2, name) {
         }
     }
 }
-
 function completeSearch() {
     let results = people;
     let firstNameResults = filterByFirstName();
@@ -111,8 +127,42 @@ function completeSearch() {
         results = ""
         return results;
     }
-    
-    
-
     console.log(results);
 }
+
+
+/* Lets try this table when we get the data returned
+let myTable = document.getElementById('#table');
+
+let mostWanted = []
+ 
+let headers = ['ID', "First Name", 'Last Name', 'Gender', 'Eye Color', 'DOB', 'Height', 'Weight', 'Occupation'];
+
+let table = document.createElement('table');
+let headerRow = document.createElement('tr');
+
+headers.forEach(headerText => {
+    let header = document.createElement('th');
+    let textNode = document.createTextNode(headerText);
+    header.appendChild(textNode);
+    headerRow.appendChild(header);
+});
+
+table.appendChild(headerRow);
+
+mostWanted.forEach(person => {
+    let row = document.createElement('tr');
+
+    Object.values(person).forEach(text => {
+        let cell = document.createElement('td');
+        let textNode = document.createTextNode(text);
+        cell.appendChild(textNode);
+        row.appendChild(cell);
+    })
+
+    table.appendChild(row);
+})
+
+myTable.appendChild(table);
+
+*/

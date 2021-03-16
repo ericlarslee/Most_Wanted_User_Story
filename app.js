@@ -126,30 +126,32 @@ function completeSearch() {
     results = intersect(results, occupationResults);
 
     
-    console.log(results);
+ return results;
 }
 
+let btnGet = document.querySelector('button');
+let myTable = document.querySelector('#table');
 
-/* Lets try this table when we get the data returned
-let myTable = document.getElementById('#table');
 
-let mostWanted = []
- 
-let headers = ['ID', "First Name", 'Last Name', 'Gender', 'Eye Color', 'DOB', 'Height', 'Weight', 'Occupation'];
+btnGet.addEventListener('click', () => {
+    let headers = ['ID','First Name', 'Last Name', 'Gender', 'Eye Color', 'DOB', 'Height', 'Weight', 'Occupation', 'Parent', 'Spouse'];
+   let table = document.createElement('table');   
+    let titleRow = document.createElement('tr');
 
-let table = document.createElement('table');
-let headerRow = document.createElement('tr');
+    headers.forEach(titleText => {
+        let title = document.createElement('th');
+        let textNode = document.createTextNode(titleText);
+        title.appendChild(textNode);
+        titleRow.appendChild(title);
+       
+    });
 
-headers.forEach(headerText => {
-    let header = document.createElement('th');
-    let textNode = document.createTextNode(headerText);
-    header.appendChild(textNode);
-    headerRow.appendChild(header);
-});
 
-table.appendChild(headerRow);
+table.appendChild(titleRow);
 
-mostWanted.forEach(person => {
+let results = completeSearch();
+
+results.forEach(person => {
     let row = document.createElement('tr');
 
     Object.values(person).forEach(text => {
@@ -163,5 +165,20 @@ mostWanted.forEach(person => {
 })
 
 myTable.appendChild(table);
+});
+
+
+
+/*
+search id
+let family = [person.parents, person.id, person.spouse]
+
+let header =  
+for each i in family getelementbYDocID 
 
 */
+
+
+
+
+

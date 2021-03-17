@@ -1,23 +1,44 @@
 'use strict';
 
+function filterByID() {
+    let iDInput = parseInt(document.forms['nameForm']['idn'].value);    
+    if(Number.isNaN(iDInput)=== true){
+        return;
+    }
+    let filteredID= people.filter(function (person) {
+            if(parseInt(person.id) === iDInput){
+                return true;
+            }
+            return false;
+        });
+        if(filteredID.length > 0){
+            return filteredID;
+         }else{
+             alert("There is no one by that ID number.")
+             return;
+        }
+    }
+
 function filterByFirstName() {
     let firstNameInput = document.forms['nameForm']['fname'].value;    
     if(firstNameInput === ""){
         return;
     }
     let filteredFirstNamePeople = people.filter(function (person) {
-            if(person.firstName === firstNameInput){
-                return true;
-            }
-            return false;
-        });
-        if(filteredFirstNamePeople.length > 0){
-            return filteredFirstNamePeople
-         }else{
-             alert("There is no one by that first name.")
-             return;
+        if(person.firstName === firstNameInput){
+            return true;
         }
+        return false;
+        });
+    if(filteredFirstNamePeople.length > 0){
+        return filteredFirstNamePeople
+    }else{
+            alert("There is no one by that first name.")
+            return;
+        }
+    
 }
+
 function filterByLastName() {
     let lastNameInput = document.forms['nameForm']['lname'].value;    
     if(lastNameInput === "") {
@@ -95,7 +116,6 @@ function filterByOccupation() {
         return;
     }
 }
-
 function intersect(arr1, arr2) {
     if (arr2=== undefined || arr2.length === 0) {
         return arr1;
@@ -110,32 +130,126 @@ function intersect(arr1, arr2) {
         }
     }
 }
+
 function completeSearch() {
     let results = people;
+    let iDResults = filterByID();
     let firstNameResults = filterByFirstName();
     let lastNameResults = filterByLastName();
     let eyeColorResults = filterByEyeColor();
     let genderResults = filterByGender();
     let occupationResults = filterByOccupation();
 
-
+    results = intersect(results, iDResults);
     results = intersect(results, firstNameResults);
     results = intersect(results, lastNameResults);
     results = intersect(results, eyeColorResults);
     results = intersect(results, genderResults);
     results = intersect(results, occupationResults);
-
     
  return results;
 }
 
+function findSpouse(entry) {
+    let filteredSpouse = people.filter(function (person) {
+        if(person.currentSpouse === entry.id){
+            return true;
+        }
+        return false;
+    });
+    if(filteredSpouse.length > 0){
+        return filteredSpouse
+    }else{
+        alert("This person does not have a spouse.");
+        return;
+    }
+}
+   
+
+function findSibling(entry) {
+    let filteredSibling = people.filter(function (person) {
+        if(person.parents === entry.parents && person.id !== entry.id) {
+            return true;
+        }
+        return false;
+    });
+    if(filteredSibling.length > 0) {
+        return filteredSibling;
+    }else{
+        alert("This person does not have any siblings.");
+        return;
+    }
+}
+
+function findParents(entry) {
+    let i = 0;
+    let filteredParents = [];
+    do {    
+        people.filter(function (person) {
+            if(person.id === entry[i]) {
+            filteredParents.push(person);
+                return true;
+            }
+            return false;
+        });
+        i += 1;
+    } while(i < entry.length); 
+    if(filteredParents.length > 0) {
+        return filteredParents;
+    }else{
+        alert("This person appeared on this earth magically, and does not have parents.")
+    }
+
+}
+
+function findKids(entry) {
+    let i = 0;
+    let filteredKids = [];
+    do {
+        people.filter(function (person) {
+            if(person.parents[i] === entry.id) {
+                filteredKids.push(person);
+                    return true;
+                }
+                return false;
+        });
+        i += 1;
+    } while(i < 2);
+    if(filteredKids.length > 0) {
+        return filteredKids;
+        }else{
+            alert("This person does not have any children.");
+        }
+}
+ 
+
 let btnGet = document.querySelector('button');
 let myTable = document.querySelector('#table');
 
-
 btnGet.addEventListener('click', () => {
+ let results = completeSearch();
+    if(results.length < 2) {
+        let person = results[0]
+        let parents = intersect(person.parents, people.id)
+        let spouse = findSpouse(person);
+        let siblings = findSibling(person);
+        let kids = findKids(person);
+        parents = (findParents(parents));
+        console.log(person);
+        console.log(parents);
+        console.log(spouse);
+        console.log(siblings);
+        console.log(kids);
+        let bestResults = {person, parents, spouse, siblings, kids};
+        console.log(bestResults);
+        
+
+        
+        return;
+    }
+    else {
     let headers = ['ID','First Name', 'Last Name', 'Gender', 'Eye Color', 'DOB', 'Height', 'Weight', 'Occupation', 'Parent', 'Spouse'];
-   let table = document.createElement('table');   
+    let table = document.createElement('table');   
     let titleRow = document.createElement('tr');
 
     headers.forEach(titleText => {
@@ -145,11 +259,7 @@ btnGet.addEventListener('click', () => {
         titleRow.appendChild(title);
        
     });
-
-
 table.appendChild(titleRow);
-
-let results = completeSearch();
 
 results.forEach(person => {
     let row = document.createElement('tr');
@@ -165,15 +275,4 @@ results.forEach(person => {
 })
 
 myTable.appendChild(table);
-});
-
-document.myTable("idNumber").addEventListener('click', displayFamilyTable);
-function displayFamilyTable() {
-    document.getElementById("people");
-}
-
-
-
-
-
-
+}});

@@ -222,6 +222,21 @@ function findKids(entry) {
         }
 }
  
+function makeArray(entry) {
+    return Array.from(entry);
+}
+
+function removeUndefinedFromArray(entry) {
+    let i = entry.length 
+    do {
+        if(entry[i] === undefined || entry[i] === 0) {
+            entry.pop(i);
+                return entry;
+            }
+            return false;
+            i += 1;
+    } while (i > -1))
+}
 
 let btnGet = document.querySelector('button');
 let myTable = document.querySelector('#table');
@@ -235,13 +250,39 @@ btnGet.addEventListener('click', () => {
         let siblings = findSibling(person);
         let kids = findKids(person);
         parents = (findParents(parents));
-        console.log(person);
-        console.log(parents);
-        console.log(spouse);
-        console.log(siblings);
-        console.log(kids);
-        let bestResults = {person, parents, spouse, siblings, kids};
-        console.log(bestResults);
+        let finalResultsArray = [];
+        finalResultsArray.push(person);
+        finalResultsArray = finalResultsArray.concat(spouse,siblings,kids,parents);
+        console.log(finalResultsArray);
+        
+
+    let headers = ['ID','First Name', 'Last Name', 'Gender', 'Eye Color', 'DOB', 'Height', 'Weight', 'Occupation', 'Parent', 'Spouse'];
+    let table = document.createElement('table');   
+    let titleRow = document.createElement('tr');
+
+    headers.forEach(titleText => {
+        let title = document.createElement('th');
+        let textNode = document.createTextNode(titleText);
+        title.appendChild(textNode);
+        titleRow.appendChild(title);
+       
+    });
+table.appendChild(titleRow);
+
+finalResultsArray.forEach(persons => {
+    let row = document.createElement('tr');
+
+    Object.values(persons).forEach(text => {
+        let cell = document.createElement('td');
+        let textNode = document.createTextNode(text);
+        cell.appendChild(textNode);
+        row.appendChild(cell);
+    })
+
+    table.appendChild(row);
+})
+
+myTable.appendChild(table);
         
 
         

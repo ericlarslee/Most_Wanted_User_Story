@@ -167,16 +167,11 @@ results.forEach(person => {
 myTable.appendChild(table);
 });
 
+document.myTable("idNumber").addEventListener('click', displayFamilyTable);
+function displayFamilyTable() {
+    document.getElementById("people");
+}
 
-
-/*
-search id
-let family = [person.parents, person.id, person.spouse]
-
-let header =  
-for each i in family getelementbYDocID 
-
-*/
 
 
 

@@ -25,19 +25,20 @@ function filterByFirstName() {
         return;
     }
     let filteredFirstNamePeople = people.filter(function (person) {
-            if(person.firstName === firstNameInput){
-                return true;
-            }
-            return false;
+        if(person.firstName === firstNameInput){
+            return true;
+        }
+        return false;
         });
-        if(filteredFirstNamePeople.length > 0){
-            return filteredFirstNamePeople
-         }else{
-             alert("There is no one by that first name.")
-             return;
+    if(filteredFirstNamePeople.length > 0){
+        return filteredFirstNamePeople
+    }else{
+            alert("There is no one by that first name.")
+            return;
         }
     
 }
+
 function filterByLastName() {
     let lastNameInput = document.forms['nameForm']['lname'].value;    
     if(lastNameInput === "") {
@@ -129,6 +130,7 @@ function intersect(arr1, arr2) {
         }
     }
 }
+
 function completeSearch() {
     let results = people;
     let iDResults = filterByID();
@@ -148,18 +150,101 @@ function completeSearch() {
  return results;
 }
 
+function findSpouse(entry) {
+    let filteredSpouse = people.filter(function (person) {
+        if(person.currentSpouse === entry.id){
+            return true;
+        }
+        return false;
+    });
+    if(filteredSpouse.length > 0){
+        return filteredSpouse
+    }else{
+        alert("This person does not have a spouse.");
+        return;
+    }
+}
+   
+
+function findSibling(entry) {
+    let filteredSibling = people.filter(function (person) {
+        if(person.parents === entry.parents && person.id !== entry.id) {
+            return true;
+        }
+        return false;
+    });
+    if(filteredSibling.length > 0) {
+        return filteredSibling;
+    }else{
+        alert("This person does not have any siblings.");
+        return;
+    }
+}
+
+function findParents(entry) {
+    let i = 0;
+    let filteredParents = [];
+    do {    
+        people.filter(function (person) {
+            if(person.id === entry[i]) {
+            filteredParents.push(person);
+                return true;
+            }
+            return false;
+        });
+        i += 1;
+    } while(i < entry.length); 
+    if(filteredParents.length > 0) {
+        return filteredParents;
+    }else{
+        alert("This person appeared on this earth magically, and does not have parents.")
+    }
+
+}
+
+function findKids(entry) {
+    let i = 0;
+    let filteredKids = [];
+    do {
+        people.filter(function (person) {
+            if(person.parents[i] === entry.id) {
+                filteredKids.push(person);
+                    return true;
+                }
+                return false;
+        });
+        i += 1;
+    } while(i < 2);
+    if(filteredKids.length > 0) {
+        return filteredKids;
+        }else{
+            alert("This person does not have any children.");
+        }
+}
+ 
+
 let btnGet = document.querySelector('button');
 let myTable = document.querySelector('#table');
 
 btnGet.addEventListener('click', () => {
  let results = completeSearch();
     if(results.length < 2) {
-        let person = results[0].id;
-        let parents = results[0].parents;
-        let spouse = results[0].currentSpouse.firstName;
+        let person = results[0]
+        let parents = intersect(person.parents, people.id)
+        let spouse = findSpouse(person);
+        let siblings = findSibling(person);
+        let kids = findKids(person);
+        parents = (findParents(parents));
         console.log(person);
         console.log(parents);
         console.log(spouse);
+        console.log(siblings);
+        console.log(kids);
+        let bestResults = {person, parents, spouse, siblings, kids};
+        console.log(bestResults);
+        
+
+        
         return;
     }
     else {
@@ -191,7 +276,3 @@ results.forEach(person => {
 
 myTable.appendChild(table);
 }});
-
-
-
-

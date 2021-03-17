@@ -221,22 +221,6 @@ function findKids(entry) {
             alert("This person does not have any children.");
         }
 }
- 
-function makeArray(entry) {
-    return Array.from(entry);
-}
-
-function removeUndefinedFromArray(entry) {
-    let i = entry.length 
-    do {
-        if(entry[i] === undefined || entry[i] === 0) {
-            entry.pop(i);
-                return entry;
-            }
-            return false;
-            i += 1;
-    } while (i > -1))
-}
 
 let btnGet = document.querySelector('button');
 let myTable = document.querySelector('#table');
